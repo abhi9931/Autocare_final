@@ -11,11 +11,19 @@ public abstract class AutocareBaseDAO<T> {
 	private HibernateTemplate hibernateTemplate;
 	@Transactional
 	public void  addEntity(T entity) {
-		hibernateTemplate.saveOrUpdate(entity);
+		hibernateTemplate.save(entity);
 	}
 	
-	private T loadEntiry(String entiryName,Serializable ID) {
+	@Transactional
+	public void  updateEntity(T entity) {
+		hibernateTemplate.update(entity);
+	}
+	
+	@SuppressWarnings({ "unchecked" })
+	public T loadEntiry(String entiryName,Serializable ID) {
 		return  (T)hibernateTemplate.get(entiryName, ID);
 	}
+	
+	
 	
 }
